@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - EventEase</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/ST10434048_BookingSystem.styles.css" asp-append-version="true" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary border-bottom shadow-sm">
+			<div class="container">
+				<!-- Branding -->
+				<a class="navbar-brand fw-bold" asp-area="" asp-controller="Home" asp-action="Index">
+					EventEase
+				</a>
+
+				<!-- Hamburger toggle for mobile -->
+				<button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavMinimal" aria-controls="navbarNavMinimal" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<!-- Navbar links -->
+				<div class="collapse navbar-collapse" id="navbarNavMinimal">
+					<ul class="navbar-nav ms-auto align-items-center gap-3">
+
+						<!-- Search Icon Button -->
+						<li class="nav-item">
+							<a asp-controller="Search" asp-action="Index"
+							   class="nav-link text-light"
+							   title="Search">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search" viewBox="0 0 24 24">
+									<circle cx="11" cy="11" r="8"></circle>
+									<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+								</svg>
+							</a>
+						</li>
+
+
+
+
+						<!-- Add Dropdown -->
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="addDropdownMinimal" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="bi bi-plus-circle me-1 fs-5"></i> Add
+							</a>
+							<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="addDropdownMinimal">
+								<li><a class="dropdown-item" asp-area="" asp-controller="Events" asp-action="Add"><i class="bi bi-calendar-event me-2"></i> Event</a></li>
+								<li><a class="dropdown-item" asp-area="" asp-controller="Venues" asp-action="Add"><i class="bi bi-building me-2"></i> Venue</a></li>
+								<li><a class="dropdown-item" asp-area="" asp-controller="Bookings" asp-action="Add"><i class="bi bi-journal-plus me-2"></i> Booking</a></li>
+							</ul>
+						</li>
+
+						<!-- View Dropdown -->
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="viewDropdownMinimal" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="bi bi-eye me-1 fs-5"></i> View
+							</a>
+							<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="viewDropdownMinimal">
+								<li><a class="dropdown-item" asp-area="" asp-controller="Events" asp-action="DisplayEvents"><i class="bi bi-calendar-event me-2"></i> Events</a></li>
+								<li><a class="dropdown-item" asp-area="" asp-controller="Venues" asp-action="DisplayVenues"><i class="bi bi-building me-2"></i> Venues</a></li>
+							</ul>
+						</li>
+
+						<!-- Bookings Link -->
+						<li class="nav-item">
+							<a class="nav-link d-flex align-items-center" asp-area="" asp-controller="Bookings" asp-action="DisplayBookings">
+								<i class="bi bi-journal-check me-1 fs-5"></i> Bookings
+							</a>
+						</li>
+					</ul>
+					<button id="darkModeToggle" class="btn btn-outline-light btn-sm rounded-circle ms-3" style="width: 36px; height: 36px;" title="Toggle dark mode">
+						<i class="bi bi-moon-fill fs-6"></i>
+					</button>
+
+				</div>
+			</div>
+		</nav>
+
+	</header>
+
+
+
+
+	<!-- Main Content -->
+	<div class="container mt-4">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
+
+	<!-- Footer -->
+	<footer class="border-top footer text-muted bg-light py-3 mt-auto shadow-sm">
+		<div class="container d-flex justify-content-between align-items-center">
+			<span>&copy; 2025 - ST10434048_BookingSystem</span>
+			<a class="text-decoration-none text-primary fw-bold" asp-area="" asp-controller="Home" asp-action="Privacy">Information</a>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+	<script>
+		const toggleButton = document.getElementById('darkModeToggle');
+		const body = document.body;
+
+		// Load saved preference
+		if (localStorage.getItem('darkMode') === 'enabled') {
+			body.classList.add('dark-mode');
+			toggleButton.innerHTML = '<i class="bi bi-sun-fill"></i>';
+		}
+
+		toggleButton.addEventListener('click', () => {
+			body.classList.toggle('dark-mode');
+
+			if (body.classList.contains('dark-mode')) {
+				localStorage.setItem('darkMode', 'enabled');
+				toggleButton.innerHTML = '<i class="bi bi-sun-fill"></i>';
+			} else {
+				localStorage.setItem('darkMode', 'disabled');
+				toggleButton.innerHTML = '<i class="bi bi-moon-fill"></i>';
+			}
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center my-5">
+    <h1 class="display-3 fw-bold mb-3">
+        Welcome to the Event Management System
+    </h1>
+    <div class="alert alert-warning mx-auto" style="max-width: 600px;">
+        <strong>Note:</strong> This is still a work in progress.
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="mb-5 text-center">Current Functionality Includes:</h2>
+
+    <div class="row g-4 justify-content-center">
+        <div class="col-12 col-md-6 col-lg-4">
+            <a asp-controller="Venues" asp-action="Add" class="card h-100 text-decoration-none  shadow-sm hover-shadow">
+                <div class="card-body d-flex align-items-center">
+                    <i class="bi bi-building fs-1 text-primary me-4"></i>
+                    <h5 class="card-title mb-0">Adding Venues</h5>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-4">
+            <a asp-controller="Events" asp-action="Add" class="card h-100 text-decoration-none  shadow-sm hover-shadow">
+                <div class="card-body d-flex align-items-center">
+                    <i class="bi bi-calendar-event fs-1 text-success me-4"></i>
+                    <h5 class="card-title mb-0">Adding Events</h5>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-4">
+            <a asp-controller="Bookings" asp-action="Add" class="card h-100 text-decoration-none  shadow-sm hover-shadow">
+                <div class="card-body d-flex align-items-center">
+                    <i class="bi bi-journal-plus fs-1 text-warning me-4"></i>
+                    <h5 class="card-title mb-0">Creating Bookings</h5>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-4">
+            <a asp-controller="Bookings" asp-action="DisplayBookings" class="card h-100 text-decoration-none  shadow-sm hover-shadow">
+                <div class="card-body d-flex align-items-center">
+                    <i class="bi bi-journal-check fs-1 text-info me-4"></i>
+                    <h5 class="card-title mb-0">Viewing Bookings</h5>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-4">
+            <a asp-controller="Events" asp-action="DisplayEvents" class="card h-100 text-decoration-none  shadow-sm hover-shadow">
+                <div class="card-body d-flex align-items-center">
+                    <i class="bi bi-calendar3 fs-1 text-danger me-4"></i>
+                    <h5 class="card-title mb-0">View All Events</h5>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-4">
+            <a asp-controller="Venues" asp-action="DisplayVenues" class="card h-100 text-decoration-none shadow-sm hover-shadow">
+                <div class="card-body d-flex align-items-center">
+                    <i class="bi bi-building fs-1 text-secondary me-4"></i>
+                    <h5 class="card-title mb-0">View All Venues</h5>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Hover shadow effect */
+    .hover-shadow:hover {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        transform: translateY(-5px);
+        transition: all 0.3s ease;
+        text-decoration: none !important;
+    }
+
+    .card {
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+</style>

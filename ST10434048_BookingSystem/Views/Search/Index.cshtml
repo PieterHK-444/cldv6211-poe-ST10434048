@@ -1,0 +1,108 @@
+﻿@model ST10434048_BookingSystem.Models.View_Models.SearchViewModel
+
+<h2 class="mb-4">Booking Search</h2>
+
+<form asp-action="Index" method="post" class="mb-4">
+    <div class="row g-3">
+        <div class="col-md-3">
+            @Html.LabelFor(m => m.BookingId, new { @class = "form-label" })
+            @Html.TextBoxFor(m => m.BookingId, new { @class = "form-control", placeholder = "Enter booking ID" })
+        </div>
+
+        <div class="col-md-3">
+            @Html.LabelFor(m => m.EventName, new { @class = "form-label" })
+            @Html.TextBoxFor(m => m.EventName, new { @class = "form-control", placeholder = "Search by event name" })
+        </div>
+
+        <div class="col-md-3">
+            @Html.LabelFor(m => m.EventTypeID, new { @class = "form-label" })
+            @Html.DropDownListFor(m => m.EventTypeID, (IEnumerable<SelectListItem>)ViewBag.EventTypes, "Select event type", new { @class = "form-select" })
+        </div>
+
+        <div class="col-md-3">
+            @Html.LabelFor(m => m.VenueName, new { @class = "form-label" })
+            @Html.DropDownListFor(m => m.VenueName, (IEnumerable<SelectListItem>)ViewBag.Venues, "Select venue", new { @class = "form-select" })
+        </div>
+    </div>
+
+    <div class="row g-3 mt-3">
+        <div class="col-md-3">
+            @Html.LabelFor(m => m.StartDate, new { @class = "form-label" })
+            @Html.TextBoxFor(m => m.StartDate,
+                     Model.StartDate.HasValue ? Model.StartDate.Value.ToString("yyyy-MM-dd") : "",
+                     new { @class = "form-control", type = "date" })
+        </div>
+
+        <div class="col-md-3">
+            @Html.LabelFor(m => m.EndDate, new { @class = "form-label" })
+            @Html.TextBoxFor(m => m.EndDate,
+                     Model.EndDate.HasValue ? Model.EndDate.Value.ToString("yyyy-MM-dd") : "",
+                     new { @class = "form-control", type = "date" })
+        </div>
+
+        <div class="col-md-3">
+            @Html.LabelFor(m => m.VenueAvailable, new { @class = "form-label" })
+            @Html.DropDownListFor(m => m.VenueAvailable,
+                     new List<SelectListItem>
+            {
+            new SelectListItem { Text = "Any", Value = "" },
+            new SelectListItem { Text = "Available", Value = "true" },
+            new SelectListItem { Text = "Not Available", Value = "false" }
+            },
+                     new { @class = "form-select" })
+        </div>
+    </div>
+
+    <div class="mt-4 text-end">
+        <button type="submit" class="btn btn-primary px-4">
+            <i class="bi bi-search me-2"></i>Search
+        </button>
+    </div>
+</form>
+
+@if (Model.HasSearched)
+{
+    if (!Model.Bookings.Any())
+    {
+        <div class="alert alert-warning mt-4">
+            No bookings found matching your criteria.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive mt-4">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Booking ID</th>
+                        <th>Event</th>
+                        <th>Venue</th>
+                        <th>Date</th>
+                        <th>Location</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var booking in Model.Bookings)
+                    {
+                        <tr>
+                            <td class="text-nowrap">
+                                <small class="text-muted">@booking.BookingId</small>
+                            </td>
+                            <td>
+                                <div class="fw-medium">@booking.EventName</div>
+                                <small class="text-muted">Capacity: @booking.VenueCapacity</small>
+                            </td>
+                            <td>@booking.VenueName</td>
+                            <td>@booking.BookingDate.ToString("dd MMM yyyy")</td>
+                            <td>@booking.VenueLocation</td>
+                            <td>
+                                <a class="btn btn-primary" asp-controller="Bookings" asp-action="EditBooking" asp-route-id="@booking.BookingId">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+}
